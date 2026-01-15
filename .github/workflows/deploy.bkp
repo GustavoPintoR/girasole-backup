@@ -1,0 +1,30 @@
+name: Deploy to remote
+on:
+  push:
+    branches:
+      - main
+      - develop
+jobs:
+
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stage' }}
+    env: 
+      ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stage' }}
+    steps:
+    - name: Deploy application
+      run: echo "Deploying to environment ${{ env.ENVIRONMENT }}"
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: | 
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/github_rsa
+            cd ~/laravel
+            git pull origin
+            # docker compose up -d --build

@@ -1,0 +1,22 @@
+import RegisteredUserController from './RegisteredUserController'
+import AuthenticatedSessionController from './AuthenticatedSessionController'
+import PasswordResetLinkController from './PasswordResetLinkController'
+import NewPasswordController from './NewPasswordController'
+import EmailVerificationPromptController from './EmailVerificationPromptController'
+import VerifyEmailController from './VerifyEmailController'
+import EmailVerificationNotificationController from './EmailVerificationNotificationController'
+import ConfirmablePasswordController from './ConfirmablePasswordController'
+import WaitingController from './WaitingController'
+const Auth = {
+    RegisteredUserController,
+AuthenticatedSessionController,
+PasswordResetLinkController,
+NewPasswordController,
+EmailVerificationPromptController,
+VerifyEmailController,
+EmailVerificationNotificationController,
+ConfirmablePasswordController,
+WaitingController,
+}
+
+export default Auth

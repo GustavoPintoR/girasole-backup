@@ -1,0 +1,86 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }};
+use Inertia\Inertia;
+use Inertia\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
+
+class {{ class }} extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): Response
+    {
+        Gate::authorize('viewAny', {{ model }}::class);
+
+        ${{ modelVariable }}s = [];
+        //
+        return Inertia::render('{{ modelVariable }}s/Index', ['{{ modelVariable }}s' => ${{ modelVariable }}s]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): Response
+    {
+        Gate::authorize('create', {{ model }}::class);
+        //
+        return Inertia::render('{{ modelVariable }}s/Create', []);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store({{ storeRequest }} $request): RedirectResponse
+    {
+        Gate::authorize('create', {{ model }}::class);
+        //
+        return redirect()->route('{{ modelVariable }}s.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show({{ model }} ${{ modelVariable }}): Response
+    {
+        Gate::authorize('view', ${{ modelVariable }});
+        //
+        return Inertia::render('{{ modelVariable }}s/Show', ['{{ modelVariable }}' => ${{ modelVariable }}]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit({{ model }} ${{ modelVariable }}): Response
+    {
+        Gate::authorize('update', ${{ modelVariable }});
+        //
+        return Inertia::render('{{ modelVariable }}s/Edit', ['{{ modelVariable }}' => ${{ modelVariable }}]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }}): RedirectResponse
+    {
+        Gate::authorize('update', ${{ modelVariable }});
+        //
+        return redirect()->route('{{ modelVariable }}s.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy({{ model }} ${{ modelVariable }}): RedirectResponse
+    {
+        Gate::authorize('delete', ${{ modelVariable }});
+        //
+        return redirect()->route('{{ modelVariable }}s.index');
+    }
+}
